@@ -253,7 +253,8 @@ public final class akses {
             kriteria_masuk_picu=false,kriteria_keluar_picu=false,master_sampel_bakumutu=false,skrining_instrumen_amt=false,parameter_pengujian_lab_kesehatan_lingkungan=false,
             nilai_normal_baku_mutu_lab_kesehatan_lingkungan=false,skrining_pneumonia_severity_index=false,permintaan_pengujian_sampel_lab_kesehatan_lingkungan=false,
             penilaian_awal_medis_ralan_jantung=false,penilaian_awal_medis_ralan_urologi=false,hasil_pemeriksaan_treadmill=false,hasil_pemeriksaan_echo_pediatrik=false,
-            template_pelaksanaan_informasi_edukasi=false,skrining_instrumen_esat;
+            template_pelaksanaan_informasi_edukasi=false,skrining_instrumen_esat=false,penilaian_awal_medis_ranap_jantung=false,e_eksekutif=false,penugasan_pengujian_sampel_lab_kesehatan_lingkungan=false,
+            hasil_pengujian_sampel_lab_kesehatan_lingkungan=false,verifikasi_pengujian_sampel_lab_kesehatan_lingkungan=false,validasi_pengujian_sampel_lab_kesehatan_lingkungan=false;
     
     public static void setData(String user, String pass) {
         try {        
@@ -401,6 +402,7 @@ public final class akses {
                         akses.diagnosa_pasien=true;
                         akses.admin=true;
                         akses.user=true;
+                        akses.e_eksekutif=true;
                         akses.vakum=true;
                         akses.aplikasi=true;
                         akses.surveilans_ranap=true;
@@ -1437,6 +1439,11 @@ public final class akses {
                         akses.hasil_pemeriksaan_echo_pediatrik=true;
                         akses.template_pelaksanaan_informasi_edukasi=true;
                         akses.skrining_instrumen_esat=true;
+                        akses.penilaian_awal_medis_ranap_jantung=true;
+                        akses.penugasan_pengujian_sampel_lab_kesehatan_lingkungan=true;
+                        akses.hasil_pengujian_sampel_lab_kesehatan_lingkungan=true;
+                        akses.verifikasi_pengujian_sampel_lab_kesehatan_lingkungan=true;
+                        akses.validasi_pengujian_sampel_lab_kesehatan_lingkungan=true;
                     }else if(rs2.getRow()>=1){   
                         rs2.beforeFirst();
                         rs2.next();
@@ -1569,6 +1576,7 @@ public final class akses {
                         akses.surveilans_ranap=rs2.getBoolean("surveilans_ranap");
                         akses.admin=false;
                         akses.user=false;
+                        akses.e_eksekutif=false;
                         akses.vakum=false;
                         akses.aplikasi=false;
                         akses.pny_takmenular_ranap=rs2.getBoolean("pny_takmenular_ranap");
@@ -2604,6 +2612,11 @@ public final class akses {
                         akses.hasil_pemeriksaan_echo_pediatrik=rs2.getBoolean("hasil_pemeriksaan_echo_pediatrik");
                         akses.template_pelaksanaan_informasi_edukasi=rs2.getBoolean("template_pelaksanaan_informasi_edukasi");
                         akses.skrining_instrumen_esat=rs2.getBoolean("skrining_instrumen_esat");
+                        akses.penilaian_awal_medis_ranap_jantung=rs2.getBoolean("penilaian_awal_medis_ranap_jantung");
+                        akses.penugasan_pengujian_sampel_lab_kesehatan_lingkungan=rs2.getBoolean("penugasan_pengujian_sampel_lab_kesehatan_lingkungan");
+                        akses.hasil_pengujian_sampel_lab_kesehatan_lingkungan=rs2.getBoolean("hasil_pengujian_sampel_lab_kesehatan_lingkungan");
+                        akses.verifikasi_pengujian_sampel_lab_kesehatan_lingkungan=rs2.getBoolean("verifikasi_pengujian_sampel_lab_kesehatan_lingkungan");
+                        akses.validasi_pengujian_sampel_lab_kesehatan_lingkungan=rs2.getBoolean("validasi_pengujian_sampel_lab_kesehatan_lingkungan");
                     }else if((rs.getRow()==0)&&(rs2.getRow()==0)){
                         setLogOut();
                     }
@@ -2754,6 +2767,7 @@ public final class akses {
         akses.set_harga_obat_ranap=false;
         akses.admin= false;
         akses.user= false;
+        akses.e_eksekutif=false;
         akses.vakum= false;
         akses.aplikasi= false;
         akses.penyakit_pd3i=false;
@@ -3794,12 +3808,18 @@ public final class akses {
         akses.hasil_pemeriksaan_echo_pediatrik=false;
         akses.template_pelaksanaan_informasi_edukasi=false;
         akses.skrining_instrumen_esat=false;
+        akses.penilaian_awal_medis_ranap_jantung=false;
+        akses.penugasan_pengujian_sampel_lab_kesehatan_lingkungan=false;
+        akses.hasil_pengujian_sampel_lab_kesehatan_lingkungan=false;
+        akses.verifikasi_pengujian_sampel_lab_kesehatan_lingkungan=false;
+        akses.validasi_pengujian_sampel_lab_kesehatan_lingkungan=false;
     }
     
     public static int getjml1() {return akses.jml1;}    
     public static int getjml2() {return akses.jml2;}    
     public static boolean getadmin(){return akses.admin;}        
     public static boolean getuser(){return akses.user;} 
+    public static boolean gete_eksekutif(){return akses.e_eksekutif;}
     public static boolean getvakum(){return akses.vakum;} 
     public static boolean getaplikasi(){return akses.aplikasi;} 
     public static boolean getpenyakit(){return akses.penyakit;} 
@@ -4998,4 +5018,9 @@ public final class akses {
     public static boolean gethasil_pemeriksaan_echo_pediatrik(){return akses.hasil_pemeriksaan_echo_pediatrik;}
     public static boolean gettemplate_pelaksanaan_informasi_edukasi(){return akses.template_pelaksanaan_informasi_edukasi;}
     public static boolean getskrining_instrumen_esat(){return akses.skrining_instrumen_esat;}
+    public static boolean getpenilaian_awal_medis_ranap_jantung(){return akses.penilaian_awal_medis_ranap_jantung;}
+    public static boolean getpenugasan_pengujian_sampel_lab_kesehatan_lingkungan(){return akses.penugasan_pengujian_sampel_lab_kesehatan_lingkungan;}
+    public static boolean gethasil_pengujian_sampel_lab_kesehatan_lingkungan(){return akses.hasil_pengujian_sampel_lab_kesehatan_lingkungan;}
+    public static boolean getverifikasi_pengujian_sampel_lab_kesehatan_lingkungan(){return akses.verifikasi_pengujian_sampel_lab_kesehatan_lingkungan;}
+    public static boolean getvalidasi_pengujian_sampel_lab_kesehatan_lingkungan(){return akses.validasi_pengujian_sampel_lab_kesehatan_lingkungan;}
 }   
