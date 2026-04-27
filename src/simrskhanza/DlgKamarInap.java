@@ -38,6 +38,7 @@ import fungsi.sekuel;
 import fungsi.validasi;
 import fungsi.akses;
 import fungsi.lokasidepoutama;
+import fungsi.cacherawatinap;
 import fungsi.pengaturankamarinap;
 import inventory.DlgCariObat2;
 import inventory.DlgCariObat3;
@@ -4976,6 +4977,9 @@ public class DlgKamarInap extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
@@ -7989,6 +7993,28 @@ public class DlgKamarInap extends javax.swing.JDialog {
         }      
     }//GEN-LAST:event_formWindowActivated
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) { 
+        cacherawatinap.SetPilihanBelumPulang(R1.isSelected());
+        cacherawatinap.SetPilihanTanggalMasuk(R2.isSelected());
+        cacherawatinap.SetPilihanTanggalPulang(R3.isSelected());
+        cacherawatinap.SetTanggalMasuk1(DTPCari1.getDate());
+        cacherawatinap.SetTanggalMasuk2(DTPCari2.getDate());
+        cacherawatinap.SetTanggalPulang1(DTPCari3.getDate());
+        cacherawatinap.SetTanggalPulang2(DTPCari4.getDate());
+        cacherawatinap.SetKeyWord(TCari.getText());
+        cacherawatinap.SetStatusBayar(cmbStatusBayar.getSelectedItem().toString());
+        cacherawatinap.SetKamar(BangsalCari.getText());
+        
+        cacherawatinap.clearDataPasien();
+        for (i = 0; i < tabMode.getRowCount(); i++) {
+            Object[] baris = new Object[tabMode.getColumnCount()];
+            for (int j = 0; j < tabMode.getColumnCount(); j++) {
+                baris[j] = tabMode.getValueAt(i, j);
+            }
+            cacherawatinap.setDataPasien(baris);
+        }
+    }
+    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try {
             if(pengaturankamarinap.getAktifkanDiagnosaAkhir().equals("Yes")){
@@ -7998,6 +8024,48 @@ public class DlgKamarInap extends javax.swing.JDialog {
             }
         } catch (Exception e) {
             diagnosaakhir.setEditable(false);
+        }
+        
+        if(cacherawatinap.getTanggalMasuk1()!=null){
+            DTPCari1.setDate(cacherawatinap.getTanggalMasuk1());
+        }
+        
+        if(cacherawatinap.getTanggalMasuk2()!=null){
+            DTPCari2.setDate(cacherawatinap.getTanggalMasuk2());
+        }
+        
+        if(cacherawatinap.getTanggalPulang1()!=null){
+            DTPCari3.setDate(cacherawatinap.getTanggalPulang1());
+        }
+        
+        if(cacherawatinap.getTanggalPulang2()!=null){
+            DTPCari4.setDate(cacherawatinap.getTanggalPulang2());
+        }
+        
+        if(cacherawatinap.getKeyWord()!=null){
+            TCari.setText(cacherawatinap.getKeyWord());
+        }
+        
+        if(cacherawatinap.getStatusBayar()!=null){
+            cmbStatusBayar.setSelectedItem(cacherawatinap.getStatusBayar());
+        }
+        
+        if(cacherawatinap.getKamar()!=null){
+            BangsalCari.setText(cacherawatinap.getKamar());
+        }
+        
+        R1.setSelected(cacherawatinap.getPilihanBelumPulang());
+        R2.setSelected(cacherawatinap.getPilihanTanggalMasuk());
+        R3.setSelected(cacherawatinap.getPilihanTanggalPulang());
+        
+        if(!cacherawatinap.getDataPasien().isEmpty()){
+            for (Object[] baris : cacherawatinap.getDataPasien()) {
+                tabMode.addRow(baris);
+            }
+            LCount.setText("" + tabMode.getRowCount());
+            cacherawatinap.clearDataPasien();
+        }else{
+            tampil();
         }
         
         if(koneksiDB.CARICEPAT().equals("aktif")){

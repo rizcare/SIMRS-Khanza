@@ -512,6 +512,9 @@ import bridging.SatuSehatMapingRadiologi;
 import bridging.SatuSehatMapingVaksin;
 import bridging.SatuSehatReferensiPasien;
 import bridging.SatuSehatReferensiPraktisi;
+import bridging.SmartKlaimBPJSKirimFHIR;
+import bridging.SmartKlaimBPJSMappingPenyakit;
+import bridging.SmartKlaimBPJSMappingProsedur;
 import dapur.DapurSuplier;
 import grafikanalisa.GrafikHemodialisaPerBulan;
 import grafikanalisa.GrafikHemodialisaPerTanggal;
@@ -664,6 +667,10 @@ import dapur.DapurSirkulasiBarang2;
 import dapur.DapurStokKeluarBarangPerTanggal;
 import dapur.DapurSuratPemesanan;
 import dapur.DapurVerifikasiPenerimaan;
+import fungsi.cacheigd;
+import fungsi.cacherawatinap;
+import fungsi.cacherawatjalan;
+import fungsi.cacheregistrasi;
 import grafikanalisa.GrafikKeslingLimbahB3CairBulan;
 import grafikanalisa.GrafikKeslingLimbahB3CairPertanggal;
 import inventaris.InventarisSirkulasiCSSD;
@@ -8322,7 +8329,6 @@ public class frmUtama extends javax.swing.JFrame {
 
     private void BtnLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLogActionPerformed
         FlayMenu.setVisible(false);
-        
         switch (BtnLog.getText().trim()) {
             case "Log Out":
                 BtnToolReg.setEnabled(false);
@@ -8366,7 +8372,11 @@ public class frmUtama extends javax.swing.JFrame {
         }else if(edPwd.getText().trim().equals("")){
             Valid.textKosong(edPwd,"Password");
         }else {
-            try {                               
+            try {   
+                cacheigd.reset();
+                cacherawatjalan.reset();
+                cacherawatinap.reset();
+                cacheregistrasi.reset();
                 akses.setData(edAdmin.getText(),edPwd.getText());        
                 if(akses.getjml1()>=1){    
                     BtnMenu.setEnabled(true);
@@ -23318,7 +23328,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));        
         isTutup();
         PCRAICRAPengkajianRisikoPraKonstruksi form=new PCRAICRAPengkajianRisikoPraKonstruksi(this,false);
-        form.emptTeks();
+        form.setTampil();
         form.setSize(PanelUtama.getWidth(),PanelUtama.getHeight());
         form.setLocationRelativeTo(PanelUtama);
         form.setVisible(true);
@@ -23373,6 +23383,39 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         DlgHome.dispose();
         this.setCursor(Cursor.getDefaultCursor());
     } 
+    
+    private void btnMappingProsedurSmartKlaimBPJSActionPerformed(java.awt.event.ActionEvent evt) {
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        SmartKlaimBPJSMappingProsedur form=new SmartKlaimBPJSMappingProsedur(this,false);
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }
+    
+    private void btnMappingPenyakitSmartKlaimBPJSActionPerformed(java.awt.event.ActionEvent evt) {
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        SmartKlaimBPJSMappingPenyakit form=new SmartKlaimBPJSMappingPenyakit(this,false);
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }
+    
+    private void btnKirimFHIRSmartKlaimBPJSActionPerformed(java.awt.event.ActionEvent evt) {
+        isTutup();
+        DlgHome.dispose();
+        this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        SmartKlaimBPJSKirimFHIR form=new SmartKlaimBPJSKirimFHIR(this,false);
+        form.setSize(PanelUtama.getWidth(), PanelUtama.getHeight());
+        form.setLocationRelativeTo(PanelUtama);
+        form.setVisible(true);
+        this.setCursor(Cursor.getDefaultCursor());
+    }
     
     /**
     * @param args the command line arguments
@@ -24090,7 +24133,7 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             btnSkriningCURB65,btnBPJSPotensiPRB,btnBPJSRiwayatPelayananObatApotek,btnSkriningGiziKehamilan,btnBPJSRekapPesertaPRBObatApotek,btnSuratSerahTerimaBarangAnggotaTubuh,btnPCRAICRAJenisAktivitasProyek,
             btnPCRAICRALokasiKelompokRisiko,btnPCRAICRAKelasRisikoPencegahan,btnPCRAICRATindakanPengendalian,btnPCRAICRAIdentifikasiRisikoInfeksi,btnPCRAICRAIdentifikasiRisikoKeselamatan,
             btnPCRAICRAIdentifikasiRisikoKebakaran,btnPCRAICRAIdentifikasiRisikoUtilitas,btnBPJSResepObatApotek,btnObatApolApotekBPJS,btnPermintaanResepIterasiApotekBPJS,btnPCRAICRAPengkajianRisikoPraKonstruksi,
-            btnPCRAICRAPersyaratanHarusDipenuhi,btnKirimQRTelaahFarmasiSatuSehat,btnKirimAllergiSatuSehat,btnKonsultasiPerawat;
+            btnPCRAICRAPersyaratanHarusDipenuhi,btnKirimQRTelaahFarmasiSatuSehat,btnKirimAllergiSatuSehat,btnKonsultasiPerawat,btnMappingProsedurSmartKlaimBPJS,btnMappingPenyakitSmartKlaimBPJS,btnKirimFHIRSmartKlaimBPJS;
     
     public void isWall(){
         try{            
@@ -27100,6 +27143,21 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
             
             if(akses.getdaftar_permintaan_resep_iterasi_bpjs()==true){
                 Panelmenu.add(btnPermintaanResepIterasiApotekBPJS);
+                jmlmenu++;
+            }
+            
+            if(akses.getmapping_prosedur_smart_klaim_bpjs()==true){
+                Panelmenu.add(btnMappingProsedurSmartKlaimBPJS);
+                jmlmenu++;
+            }
+            
+            if(akses.getmapping_penyakit_smart_klaim_bpjs()==true){
+                Panelmenu.add(btnMappingPenyakitSmartKlaimBPJS);
+                jmlmenu++;
+            }
+            
+            if(akses.getbridging_smart_klaim_bpjs()==true){
+                Panelmenu.add(btnKirimFHIRSmartKlaimBPJS);
                 jmlmenu++;
             }
             
@@ -33014,6 +33072,21 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         
         if(akses.getdaftar_permintaan_resep_iterasi_bpjs()==true){
             Panelmenu.add(btnPermintaanResepIterasiApotekBPJS);
+            jmlmenu++;
+        }
+        
+        if(akses.getmapping_prosedur_smart_klaim_bpjs()==true){
+            Panelmenu.add(btnMappingProsedurSmartKlaimBPJS);
+            jmlmenu++;
+        }
+        
+        if(akses.getmapping_penyakit_smart_klaim_bpjs()==true){
+            Panelmenu.add(btnMappingPenyakitSmartKlaimBPJS);
+            jmlmenu++;
+        }
+        
+        if(akses.getbridging_smart_klaim_bpjs()==true){
+            Panelmenu.add(btnKirimFHIRSmartKlaimBPJS);
             jmlmenu++;
         }
         
@@ -40067,6 +40140,27 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         if(akses.getdaftar_permintaan_resep_iterasi_bpjs()==true){
             if(btnPermintaanResepIterasiApotekBPJS.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
                 Panelmenu.add(btnPermintaanResepIterasiApotekBPJS);
+                jmlmenu++;
+            }
+        }
+        
+        if(akses.getmapping_prosedur_smart_klaim_bpjs()==true){
+            if(btnMappingProsedurSmartKlaimBPJS.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnMappingProsedurSmartKlaimBPJS);
+                jmlmenu++;
+            }
+        }
+        
+        if(akses.getmapping_penyakit_smart_klaim_bpjs()==true){
+            if(btnMappingPenyakitSmartKlaimBPJS.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnMappingPenyakitSmartKlaimBPJS);
+                jmlmenu++;
+            }
+        }
+        
+        if(akses.getbridging_smart_klaim_bpjs()==true){
+            if(btnKirimFHIRSmartKlaimBPJS.getText().toLowerCase().trim().contains(TCari.getText().toLowerCase().trim())){
+                Panelmenu.add(btnKirimFHIRSmartKlaimBPJS);
                 jmlmenu++;
             }
         }
@@ -50090,6 +50184,30 @@ private void MnGantiPasswordBtnLogActionPerformed(java.awt.event.ActionEvent evt
         btnPermintaanResepIterasiApotekBPJS.setName("btnPermintaanResepIterasiApotekBPJS"); 
         btnPermintaanResepIterasiApotekBPJS.setPreferredSize(new java.awt.Dimension(200, 90));
         btnPermintaanResepIterasiApotekBPJS.addActionListener(this::btnPermintaanResepIterasiApotekBPJSActionPerformed);
+        
+        btnMappingProsedurSmartKlaimBPJS = new widget.ButtonBig();
+        btnMappingProsedurSmartKlaimBPJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/bpjs.png")));
+        btnMappingProsedurSmartKlaimBPJS.setText("Mapping Prosedur Smart Klaim BPJS");
+        btnMappingProsedurSmartKlaimBPJS.setIconTextGap(0);
+        btnMappingProsedurSmartKlaimBPJS.setName("btnMappingProsedurSmartKlaimBPJS"); 
+        btnMappingProsedurSmartKlaimBPJS.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnMappingProsedurSmartKlaimBPJS.addActionListener(this::btnMappingProsedurSmartKlaimBPJSActionPerformed);
+        
+        btnMappingPenyakitSmartKlaimBPJS = new widget.ButtonBig();
+        btnMappingPenyakitSmartKlaimBPJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/bpjs.png")));
+        btnMappingPenyakitSmartKlaimBPJS.setText("Mapping Penyakit Smart Klaim BPJS");
+        btnMappingPenyakitSmartKlaimBPJS.setIconTextGap(0);
+        btnMappingPenyakitSmartKlaimBPJS.setName("btnMappingPenyakitSmartKlaimBPJS"); 
+        btnMappingPenyakitSmartKlaimBPJS.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnMappingPenyakitSmartKlaimBPJS.addActionListener(this::btnMappingPenyakitSmartKlaimBPJSActionPerformed);
+        
+        btnKirimFHIRSmartKlaimBPJS = new widget.ButtonBig();
+        btnKirimFHIRSmartKlaimBPJS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/bpjs.png")));
+        btnKirimFHIRSmartKlaimBPJS.setText("Kirim FHIR Smart Klaim BPJS");
+        btnKirimFHIRSmartKlaimBPJS.setIconTextGap(0);
+        btnKirimFHIRSmartKlaimBPJS.setName("btnKirimFHIRSmartKlaimBPJS"); 
+        btnKirimFHIRSmartKlaimBPJS.setPreferredSize(new java.awt.Dimension(200, 90));
+        btnKirimFHIRSmartKlaimBPJS.addActionListener(this::btnKirimFHIRSmartKlaimBPJSActionPerformed);
         
         btnPCRAICRAPengkajianRisikoPraKonstruksi = new widget.ButtonBig();
         btnPCRAICRAPengkajianRisikoPraKonstruksi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/48x48/crane_2515356.png")));
